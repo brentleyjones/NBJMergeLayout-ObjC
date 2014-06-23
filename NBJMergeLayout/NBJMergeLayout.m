@@ -47,7 +47,7 @@
     for (NSLayoutConstraint *constraint in self.constraints) {
         NSLayoutConstraint *newConstraint = [self constraintForSuperviewConstraint:constraint withNewSuperview:newSuperview];
         
-        [self.superview addConstraint:newConstraint];
+        [newSuperview addConstraint:newConstraint];
     }
     
     // Secondly we move the views over to our new superview
