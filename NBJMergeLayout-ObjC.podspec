@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
   s.name         = "NBJMergeLayout-ObjC"
   s.version      = "1.0.0"
-  s.summary      = "A view that adds its subviews to its superview when attached to a superview. Useful for storyboard/nib based view development."
+  s.summary      = "Remove unnecessary views from Nib view hierarchies"
   s.homepage     = "https://github.com/BrentleyJones/NBJMergeLayout-ObjC"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "Brentley Jones" => "contact@brentleyjones.com" }
