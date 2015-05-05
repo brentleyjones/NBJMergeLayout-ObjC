@@ -16,3 +16,7 @@ When the `NBJMergeLayout` view is added to a view (`didMoveToSuperview` for UIKi
 3. It removes itself from the superview.
 
 The end result is all of the `NBJMergeLayout` view's subviews are subviews of the view it was attached to, with the same constraints they had before (but now referencing their new superview), and the `NBJMergeLayout` view is no longer part of the view hierarchy.
+
+## Known issues
+
+`NBJMergeLayout` will update any IBOutlets in its superview that reference any of its constraints. This is needed because new constraints are created during the reassignment step described above. This covers almost any case in which you would normally use `NBJMergeLayout`. **Any other IBOutlets that reference these constraints will not be updated.**
