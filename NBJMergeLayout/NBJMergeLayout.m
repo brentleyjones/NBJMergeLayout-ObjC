@@ -8,6 +8,8 @@
 
 #import "NBJMergeLayout.h"
 
+#import <objc/runtime.h>
+
 @implementation NBJMergeLayout
 
 #if TARGET_OS_IPHONE
@@ -48,6 +50,11 @@
         NSLayoutConstraint *newConstraint = [self constraintForSuperviewConstraint:constraint withNewSuperview:newSuperview];
         
         [newSuperview addConstraint:newConstraint];
+        
+        // Update IBOutlets from old constraint to new constraint in superview
+        // (the most likely place, especially in conjunction with
+        // NBJNibBasedView)
+        [self replacePropertyReferencesInObject:self.superview forReferencedObject:constraint toNewObject:newConstraint];
     }
     
     // Secondly we move the views over to our new superview
@@ -77,6 +84,27 @@
     newConstraint.priority = constraint.priority;
     
     return newConstraint;
+}
+
+- (void)replacePropertyReferencesInObject:(id)object forReferencedObject:(id)referencedObject toNewObject:(id)newReference
+{
+    id superview = self.superview;
+    Class clazz = [superview class];
+    u_int count;
+    
+    objc_property_t* properties = class_copyPropertyList(clazz, &count);
+    for (u_int i = 0; i < count; ++i) {
+        objc_property_t property = properties[i];
+        
+        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+        id propertyValue = [superview valueForKey:propertyName];
+        
+        if (propertyValue == referencedObject) {
+            // Found a reference to the old property, let's reassign it to the new property
+            [superview setValue:newReference forKey:propertyName];
+        }
+    }
+    free(properties);
 }
 
 @end
