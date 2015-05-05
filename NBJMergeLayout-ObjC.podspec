@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.7"
   s.source       = { :git => "https://github.com/BrentleyJones/NBJMergeLayout-ObjC.git", :tag => "1.0.1" }
   s.source_files = "NBJMergeLayout/**/*.{h,m}"
-  s.requires_arc = false
+  s.requires_arc = true
 
 end
