@@ -81,7 +81,15 @@
     
     // Construct new constraint
     NSLayoutConstraint *newConstraint = [NSLayoutConstraint constraintWithItem:firstItem attribute:constraint.firstAttribute relatedBy:constraint.relation toItem:secondItem attribute:constraint.secondAttribute multiplier:constraint.multiplier constant:constraint.constant];
+    
+    // Copy over other properties
+    newConstraint.identifier = constraint.identifier;
+    newConstraint.shouldBeArchived = newConstraint.shouldBeArchived;
     newConstraint.priority = constraint.priority;
+    
+    if ([newConstraint respondsToSelector:@selector(setActive:)]) { // iOS 8
+        newConstraint.active = constraint.active;
+    }
     
     return newConstraint;
 }
