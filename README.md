@@ -1,4 +1,4 @@
-# NBJMergeLayout-ObjC
+# NBJMergeLayout-ObjC [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 **Remove unnecessary views from Nib view hierarchies**
 
 NBJMergeLayout is a view that, when added to a view, adds all of its subviews to that view and removes itself.
