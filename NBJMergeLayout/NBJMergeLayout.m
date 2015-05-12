@@ -64,6 +64,16 @@
     for (id subview in subviews) {
         [newSuperview addSubview:subview];
     }
+    
+    // Thirdly we move over any gesture recognizers that are attached to
+    // ourselves to our new superview
+    // Copy needed or OS X complains about mutating the array
+    // (since we are technically removing the gesture recognizers by adding
+    // them to the superview)
+    NSArray *gestureRecognizers = [self.gestureRecognizers copy];
+    for (id gestureRecognizer in gestureRecognizers) {
+        [newSuperview addGestureRecognizer:gestureRecognizer];
+    }
 }
 
 - (NSLayoutConstraint *)constraintForSuperviewConstraint:(NSLayoutConstraint *)constraint withNewSuperview:(id)newSuperview
